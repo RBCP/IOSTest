@@ -1,0 +1,5 @@
+[2019-12-12 16:22:47,969] INFO  tests.FirstTest 设备：device4 开始执行测试
+[2019-12-12 16:22:47,972] INFO  tests.FirstTest 设备：device4 启动appium server
+[2019-12-12 16:22:47,972] INFO  tests.FirstTest 设备：device4 配置信息：Mobile Driver：device4
+[2019-12-12 16:22:47,973] INFO  tests.FirstTest 设备：device4 Appium Serverhttp://127.0.0.1:4723/wb/hub
+[2019-12-12 16:22:47,973] INFO  tests.FirstTest 设备：device4 设备Ide15c7c76d3e80801a97660eb95a235b8c9f8e39c

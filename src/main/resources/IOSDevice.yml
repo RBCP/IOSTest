@@ -1,0 +1,11 @@
+   platformName: IOS
+   sdkVersion: 13.2.1
+   deviceName: iPhone X
+   driverName: device4
+   nodeURL: 127.0.0.1:4723
+   deviceId: e15c7c76d3e80801a97660eb95a235b8c9f8e39c
+   browser: Safari
+   bootstrapPort: 4723
+   bundleId: com.sae.comchat
+
+
