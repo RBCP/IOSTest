@@ -5,6 +5,7 @@ import io.appium.java_client.ios.IOSElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class IOSElementAction {
@@ -56,4 +57,90 @@ public class IOSElementAction {
             throw e;
         }
     }
+    public void elementSelectForIndex(IOSDriver<IOSElement> driver,String[] locator,int index,String driverName,String sdkVersion){
+        IOSElement iosElement =waitForElement(driver,locator,driverName,10,sdkVersion);
+        Select select = new Select(iosElement);
+        try{
+            select.selectByIndex(index);
+            log.info("设备: "+driverName+" "+"选择操作: index="+index);
+        }catch(Exception e){
+            log.error("设备: "+driverName+" "+"复选框选择失败 方式: [ index ]值 ["+index+"]");
+            TestListener.messageList.add(driverName+"(版本: "+sdkVersion+"):::"+"复选框失败 方式 : [ index ]值 : ["+index+"]");
+            throw e;
+        }
+    }
+    public void elementSelectForText(IOSDriver<IOSElement> driver,String[] locator,String text,String driverName,String sdkVersion){
+        IOSElement iosElement =waitForElement(driver,locator,driverName,10,sdkVersion);
+        Select select =new Select(iosElement);
+        try{
+            select.selectByVisibleText(text);
+            log.info("设备: "+driverName+" "+"选择操作: Text="+text);
+
+        }catch(Exception e){
+            log.error("设备: "+driverName+" "+"复选框选择失败 方式: [ text ] 值 : ["+text+" ] ");
+            TestListener.messageList.add(driverName+"(版本: " +sdkVersion+"):::"+"复选框选择失败 方式: [text] 值 [ "+text+"]");
+            throw e;
+        }
+    }
+    public void ElementSelectForValue(IOSDriver<IOSElement> driver,String[] locator,String value,String driverName,String sdkVersion){
+        IOSElement iosElement=waitForElement(driver,locator,driverName,10,sdkVersion);
+        Select select =new Select(iosElement);
+        try{
+            select.selectByValue(value);
+            log.info("设备: "+driverName+" "+"选择操作: Value"+value);
+        }catch(Exception e){
+            log.error("设备: "+driverName+" "+"复选框选择失败 方式 : [ value ]: [" +value+"]");
+            TestListener.messageList.add(driverName+"(版本: "+sdkVersion+"):::"+"复选框选择失败 方式: [ value ]值 : ["+value+"]");
+            throw e;
+        }
+    }
+    public String elementExport(IOSDriver<IOSElement>driver,String[] locator,String driverName,String sdkVersion){
+        IOSElement iosElement =waitForElement(driver,locator,driverName,10,sdkVersion);
+        String text=null;
+        try{
+            text=iosElement.getText();
+            log.info("设备: "+driverName+" "+"输出数据为: "+text);
+        }catch(Exception e){
+            log.error("设备: "+driverName+" "+"获取数据失败！");
+            TestListener.messageList.add(driverName+"(版本: "+sdkVersion+"):::"+"获取数据失败！");
+            throw e;
+        }
+        return text;
+    }
+    public void sendKeys(IOSDriver<IOSElement> driver,String[] locator,String driverName,String text,String sdkVersion){
+        IOSElement iosElement=waitForElement(driver,locator,driverName,15,sdkVersion);
+        try{
+            iosElement.clear();
+            iosElement.sendKeys(text);
+        }catch(Exception e){
+            log.error("设备: "+driverName+" "+"控件输入失败！");
+            TestListener.messageList.add(driverName+"(版本: "+sdkVersion+"):::"+"控件输入失败，输入数据为"+text);
+            throw e;
+        }
+    }
+    public void click(IOSDriver<IOSElement> driver,String[] locator,String driverName,String sdkVersion){
+        IOSElement iosElement=waitForElement(driver,locator,driverName,15,sdkVersion);
+        try{
+            log.info("设备:"+driverName+" "+"点击控件");
+            iosElement.click();
+        }catch(Exception e){
+            log.error("设备: "+driverName+" "+"点击控件失败");
+            TestListener.messageList.add(driverName+"(版本: "+sdkVersion+"):::"+"点击控件失败");
+            throw e;
+        }
+    }
+    public void clearElement(IOSDriver<IOSElement> driver,String[] locator,String driverName,String sdkVersion){
+        IOSElement iosElement=waitForElement(driver,locator,driverName,10,sdkVersion);
+        try{
+            log.info("设备: "+driverName+" "+"清除控件信息");
+            iosElement.clear();
+        }catch(Exception | Error e){
+            log.error("设备: "+driverName+" "+"清除控件信息失败");
+            TestListener.messageList.add(driverName+"(版本: "+sdkVersion+"):::"+"清除控件信息失败");
+        }
+    }
+    public void KeyPress(IOSElement iosElement,int keyCode,int time,String driverName,String sdkVersion){
+
+    }
+
 }
