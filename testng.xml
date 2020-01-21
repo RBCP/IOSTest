@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <listeners>
+        <listener class-name="utils.TestListener"/>
+        <listener class-name="utils.TestReport"/>
+    </listeners>
+    <test name="IOSTest" verbose="2" preserve-order="true">
+    <classes>
+        <class name="tests.loginTest">
+           <methods>
+               <include name="emptyStaffIdTest"></include>
+               <include name="emptyPasswordTest"></include>
+               <include name="InvalidLoginTest"></include>
+               <include name="validLoginTest"></include>
+           </methods>
+        </class>
+       <class name="tests.screenPasscodeTest">
+            <methods>
+                <include name="passcodeTest"></include>
+            </methods>
+        </class>
+        <class name="tests.searchTest">
+        <methods>
+            <include name="searchContactTest"></include>
+            <include name="searchHistoryTest"></include>
+        </methods>
+    </class>
+        <class name="tests.singleChatTest">
+            <methods>
+                <include name="continuousMessageTest"></include>
+                <include name="voiceMessageTest"></include>
+                <include name="sendPhotoTest"></include>
+                <include name="takePhotoTest"></include>
+                <include name="sendEmotionMessageTest"></include>
+                <include name="voiceCallTest"></include>
+            </methods>
+        </class>
+    </classes>
+    </test>
+</suite>

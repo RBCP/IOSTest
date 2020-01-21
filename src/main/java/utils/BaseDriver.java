@@ -40,7 +40,7 @@ public class BaseDriver {
                 }else{
                     log.info("设备："+driverName+" "+"配置信息：Mobile Driver："+driverName);
                     log.info("设备："+driverName+" "+"Appium Server"+"http://"+nodeURL+"/wb/hub");
-                    log.info("设备："+driverName+" "+"设备Id"+deviceId);
+                    log.info("设备："+driverName+" "+"设备Id: "+deviceId);
                     DesiredCapabilities capabilities=new DesiredCapabilities();
                     capabilities.setCapability(MobileCapabilityType.DEVICE_NAME,deviceId);
                     capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME,platformName);

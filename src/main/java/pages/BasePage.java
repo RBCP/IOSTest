@@ -17,7 +17,8 @@ public class BasePage {
     public BasePage(){
         this.driver= BaseTest.getDriver();
         this.driverName= BaseTest.getDriverName();
-        this.driverName=BaseTest.getSdkVersion();
+        this.sdkVersion=BaseTest.getSdkVersion();
         PageFactory.initElements(new AppiumFieldDecorator(this.driver),this);
     }
+
 }

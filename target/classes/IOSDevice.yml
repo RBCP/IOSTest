@@ -1,5 +1,5 @@
    platformName: IOS
-   sdkVersion: 13.2.1
+   sdkVersion: 13.2.3
    deviceName: iPhone X
    driverName: device4
    nodeURL: 127.0.0.1:4723

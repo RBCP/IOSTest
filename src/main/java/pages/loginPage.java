@@ -1,6 +1,8 @@
 package pages;
 
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.ios.IOSElement;
+import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.By;
 import utils.IOSElementAction;
 
@@ -67,11 +69,16 @@ public class loginPage extends BasePage{
         iosElementAction.click(driver,locator,driverName,sdkVersion);
     }
     public String getNullStaffToast(){
-        String[] locator=staticStaffBy.toString().split(": ");
-        return iosElementAction.elementExport(driver,locator,driverName,sdkVersion);
+        String selector="type=='XCUIElementTypeStaticText'";
+        return driver.findElement(MobileBy.iOSNsPredicateString(selector)).getText();
     }
     public String getNullPasswordToast(){
-        String[] locator=staticPassword.toString().split(": ");
-        return iosElementAction.elementExport(driver,locator,driverName,sdkVersion);
+        String selector="type=='XCUIElementTypeStaticText'";
+        return driver.findElement(MobileBy.iOSNsPredicateString(selector)).getText();
+    }
+    public String getInvalidLoginToast(){
+
+        String selector="type=='XCUIElementTypeOther'";
+        return driver.findElement(MobileBy.iOSNsPredicateString(selector)).getText();
     }
 }

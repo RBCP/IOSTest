@@ -1,12 +1,21 @@
 package utils;
 
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
+import io.appium.java_client.touch.LongPressOptions;
+import io.appium.java_client.touch.offset.ElementOption;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 public class IOSElementAction {
     public Log log=new Log(this.getClass());
@@ -39,6 +48,30 @@ public class IOSElementAction {
                 iosElement=driver.findElement(By.xpath(locator[1]));
         }
         return iosElement;
+    }
+    public IOSElement getElementByPredicate(final IOSDriver<IOSElement> driver,String selector,final String driverName,String sdkVersion){
+        IOSElement iosElement=new IOSElement();
+        try{
+           iosElement= driver.findElementByIosNsPredicate(selector);
+            log.info("设备: "+driverName+" "+"操作方式: ByIosNsPredicate"+"策略为："+selector);
+        }catch(Exception e){
+            log.error("设备: "+driverName+" "+"找不到对应的元素"+selector);
+            TestListener.messageList.add(driverName+"版本: "+sdkVersion+"):::"+" "+"找不到该元素: "+selector);
+            throw e;
+        }
+        return iosElement;
+    }
+    public List<IOSElement> getElementsByPredicate(final IOSDriver<IOSElement> driver,String selector,final String driverName,final String sdkVersion){
+        List<IOSElement> list=new ArrayList<IOSElement>();
+        try{
+            list=driver.findElementsByIosNsPredicate(selector);
+            log.info("设备: "+driverName+" "+"操作方式: ByIosNsPredicate"+"策略为: "+selector);
+        }catch(Exception | Error e){
+            log.error("设备: "+driverName+" "+"找不到对应的元素集");
+            TestListener.messageList.add(driverName+"版本: "+sdkVersion+"):::"+" "+"找不到该元素集: "+selector);
+            throw e;
+        }
+        return list;
     }
     public IOSElement waitForElement(final IOSDriver<IOSElement> driver,final String[] locator,final String driverName,int time,final String sdkVersion){
         IOSElement iosElement=null;
@@ -112,6 +145,7 @@ public class IOSElementAction {
         try{
             iosElement.clear();
             iosElement.sendKeys(text);
+            log.info("设备: "+driverName+" "+"输入的数据为: "+text);
         }catch(Exception e){
             log.error("设备: "+driverName+" "+"控件输入失败！");
             TestListener.messageList.add(driverName+"(版本: "+sdkVersion+"):::"+"控件输入失败，输入数据为"+text);
@@ -139,8 +173,33 @@ public class IOSElementAction {
             TestListener.messageList.add(driverName+"(版本: "+sdkVersion+"):::"+"清除控件信息失败");
         }
     }
-    public void KeyPress(IOSElement iosElement,int keyCode,int time,String driverName,String sdkVersion){
-
-    }
+   public void longPress(IOSDriver<IOSElement> driver,String[] locator,String driverName,int time,String sdkVersion){
+        try{
+            log.info("设备: "+driverName+" "+"长按控件");
+            IOSElement iosElement =waitForElement(driver,locator,driverName,10,sdkVersion);
+            TouchAction touchAction1=new TouchAction(driver);
+            Duration duration=Duration.of(time, ChronoUnit.SECONDS);
+            LongPressOptions longPressOptions=new LongPressOptions();
+            touchAction1.longPress(longPressOptions.withElement(ElementOption.element(iosElement)).withDuration(duration)).release().perform();
+        }catch(Exception | Error e){
+            log.error("设备: "+driverName+" "+"长按控件失败");
+            TestListener.messageList.add(driverName+"(版本: "+sdkVersion+"):::"+"长按控件失败");
+            throw e;
+        }
+   }
+   public void driverClick(IOSDriver<IOSElement> driver,String locator,String driverName,String sdkVersion){
+        String[] coordinate =locator.split(",");
+        log.info("设备: "+driverName+" "+"坐标点击: "+coordinate[0]+","+coordinate[1]);
+        int x=Integer.valueOf(coordinate[0]);
+        int y=Integer.valueOf(coordinate[1]);
+        try{
+            TouchAction touchAction=new TouchAction(driver);
+            touchAction.press(new PointOption().withCoordinates(x,y)).release().perform();
+        }catch(Exception e){
+            log.error("设备: "+driverName+" "+"点击坐标失败: [ "+coordinate[0]+","+coordinate[1]+" ]");
+            TestListener.messageList.add(driverName+"(版本: "+sdkVersion+"):::"+"长按控件失败");
+            throw e;
+        }
+   }
 
 }

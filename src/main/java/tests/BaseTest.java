@@ -19,7 +19,6 @@ public class BaseTest extends BaseDriver {
     public void setup() throws Exception{
         driver=setUpApp();
         Devices devices=getDevice();
-        System.out.println(devices.getDriverName());
         driverName=devices.getDriverName();
         sdkVersion= devices.getSdkVersion();
         deviceId= devices.getDeviceId();

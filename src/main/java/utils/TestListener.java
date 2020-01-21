@@ -16,7 +16,7 @@ public class TestListener extends TestListenerAdapter {
     public static List<String> screenMessageList=new ArrayList<String>();
     public static List<String> screenResourceList=new ArrayList<String>();
     public static List<String> ResourceList=new ArrayList<String>();
-    public static List<String> mobileSuceessMessageList=new ArrayList<String>();
+    public static List<String> mobileSuccessMessageList=new ArrayList<String>();
     public static List<String> deviceLists=new ArrayList<String>();
 
     public static String ProjectPath;
